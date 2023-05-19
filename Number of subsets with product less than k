@@ -1,0 +1,50 @@
+//User function Template for C++
+
+class Solution {
+  public:
+       int help(int n,int w,int wt[])
+    {
+        if(n==0 || w==0)
+         return 0;
+        else
+        {
+            if(wt[n-1]<=w)
+            {
+                int take=1+help(n-1,w/wt[n-1],wt);
+                int notake=help(n-1,w,wt);
+                return take+notake;
+            }
+            else
+             return help(n-1,w,wt);
+        }
+    }
+    //memoization
+    int help(int n,int w,int wt[],vector<vector<int>> &dp)
+    {
+        if(n==0 )
+         return 0;
+        if(dp[n][w]!=-1)
+         return dp[n][w];
+        else
+        {
+            if(wt[n-1]<=w)
+            {
+                int take=1+help(n-1,w/wt[n-1],wt,dp);
+                int notake=help(n-1,w,wt,dp);
+                return dp[n][w]=take+notake;
+            }
+            else
+             return dp[n][w]=help(n-1,w,wt,dp);
+        }
+    }
+    int numOfSubsets(int arr[], int N, int K) {
+        // code here
+        //only recursion
+        // return help(N,K,arr);
+        
+        //memoization
+        vector<vector<int>> dp(N+1,vector<int>(K+1,-1));
+        return help(N,K,arr,dp);
+    }
+
+};
