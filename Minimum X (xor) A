@@ -1,0 +1,22 @@
+// User function Template for C++
+
+// User function Template for C++
+
+class Solution {
+  public:
+    int minVal(int a, int b) {
+       int count=0,ans=0;
+       while(b){
+           count+=b&1;
+           b>>=1;
+       }
+       for(int i=31;i>=0&&count>0;i--){
+           if(i==count-1)return ans+(1<<(i+1))-1;
+           if(a&(1<<i)){
+               ans+=1<<i;
+               count--;
+           }
+       }
+       return ans;
+   }
+};
