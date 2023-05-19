@@ -1,0 +1,31 @@
+
+class Solution{
+    public:    //Write your code here
+         vector<int> I;
+vector<vector<int>> G;
+int id = 0, C = 0;
+int dfs(int v, int p) {
+    int low = I[v] = ++id, flag = 0;
+    for (auto& u: G[v]) {
+        if (u == p) continue;
+        int l = I[u];
+        if (!l)
+            l = dfs(u, v),
+            flag = flag || l > I[v];
+        low = min(low, l);
+    }
+    if (p>=0 && flag) C++;
+    return low;
+}
+int doctorStrange(int N, int M, vector<vector<int>> & graph) {
+    G.resize(N); I.resize(N);
+    for (int i = 0; i < M; i++) {
+        auto& e = graph[i];
+        G[e[0]-1].push_back(e[1]-1),
+        G[e[1]-1].push_back(e[0]-1);
+    }
+    dfs(0, -1);
+    return C;
+
+    }
+}; 
