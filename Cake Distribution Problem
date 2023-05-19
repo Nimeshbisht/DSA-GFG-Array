@@ -1,0 +1,48 @@
+// User function Template for C++
+
+class Solution{
+    public:
+    int isvalid(int mid,vector<int>& arr,int K,int s)
+    {
+        int sum=0;
+        int cnt=0;
+        for(int i=0;i<arr.size();i++)
+        {
+            sum+=arr[i];
+            if(sum>=mid)
+            {
+                cnt++;
+                sum=0;
+            }
+           
+        }
+        return cnt>=K;
+    }
+    int maxSweetness(vector<int>& sweetness, int N, int K) {
+    // Write  your code here.
+    
+    //10 20 30 40     
+      int l=0,h=0;
+      int s=0;
+      for(int i=0;i<N;i++)
+      {
+          s+=sweetness[i];
+      }
+      h=s;
+      int ans=-1;
+      while(l<=h)
+      {
+          int mid=(l+h)/2;
+          if(isvalid(mid,sweetness,K+1,s))
+          {
+              ans=mid;
+              l=mid+1;
+          }
+          else
+          {
+              h=mid-1;
+          }
+      }
+      return ans;
+    }
+};
