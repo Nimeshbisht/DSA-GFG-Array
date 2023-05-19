@@ -1,0 +1,24 @@
+//User function Template for C++
+
+class Solution {
+  public:
+    long long solve(long long N , vector<int>&A , long long x){
+        long long ans = 0, sum = 0;
+        long long left = 0 , right = 0;
+        for(right = 0 ; right < N ; right++){
+            sum+=A[right];
+            while(sum > x){
+                sum = sum-A[left];
+                left++;
+            }
+            ans+= (right-left + 1);
+        }
+        return ans;
+    }
+    long long countSubarray(int N,vector<int> A,long long L,long long R) {
+        // code here
+        long long count1 = solve(N, A, R);
+        long long count2 = solve(N , A, L-1);
+        return count1-count2;
+    }
+};
