@@ -1,0 +1,16 @@
+//User function template for C++
+class Solution{
+public:	
+	vector<int> constructLowerArray(int *arr, int n) {
+     // code here
+      vector<int> ans(n, 0);
+     vector<int> temp;
+     for(int i=n-1; i>=0; i--){
+         auto it = lower_bound(temp.begin(), temp.end(), arr[i]);
+         int idx = it-temp.begin();
+         ans[i] = idx;
+         temp.insert(temp.begin()+idx, arr[i]);
+     }
+     return ans;
+ }
+};
